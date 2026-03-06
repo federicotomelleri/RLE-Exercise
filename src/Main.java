@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -7,10 +6,11 @@ public class Main {
 
     /**
      * encode the input char array using Run Length Encoding (RLE) algorithm
-     *
-     * REQUIREMENTS:
+     * <p>
+     * REQUIREMENTS: <br>
+     * - input string contains characters in the set alphabet_1 = all character - digits <br>
      * - input string must NOT contain numbers (to assure correct and unique decoding)
-     *
+     * </p>
      * @param charArray array of char to encode
      * @return RLE encoded string. if input char array is empty or blank return empty string
      */
@@ -69,10 +69,11 @@ public class Main {
 
     /**
      * encode the input string using Run Length Encoding (RLE) algorithm
-     *
+     * <p>
      * REQUIREMENTS:
+     * - input string contains characters in the set alphabet_1 = all character - digits
      * - input string must NOT contain numbers (to assure correct and unique decoding)
-     *
+     * </p>
      * @param s input string to encode
      * @return RLE encoded string. if string is empty or blank return empty string
      */
@@ -121,6 +122,7 @@ public class Main {
         stringTestList.add("a");
         stringTestList.add("");
         stringTestList.add("    ");
+        stringTestList.add("wwwwaaadexxxxxxxxxxxxxxx");
 
         for (String test : stringTestList) {
             System.out.println("input: \"" + test + "\"");
