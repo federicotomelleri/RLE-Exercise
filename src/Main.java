@@ -4,6 +4,47 @@ import java.util.StringJoiner;
 
 public class Main {
 
+    public static String decode(String s) {
+        if (s.isEmpty()) {
+            return s;
+        }
+
+        if (s.isBlank()) {
+            return "";
+        }
+
+        StringJoiner decodedStringJoiner = new StringJoiner("");
+
+        char current;
+        String currentStr;
+        StringJoiner countStringJoiner;
+        long count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            current = s.charAt(i);
+
+            if (Character.isDigit(current)) {
+                continue;
+            }
+
+            countStringJoiner = new StringJoiner("");
+            for (int j = i +1; j < s.length(); j++) {
+                if (!Character.isDigit(s.charAt(j))) {
+                    break;
+                }
+                countStringJoiner.add(Character.toString(s.charAt(j)));
+            }
+
+            count = Long.parseLong(countStringJoiner.toString());
+
+            currentStr = Character.toString(current);
+            for (int k = 0; k < count; k++) {
+                decodedStringJoiner.add(currentStr);
+            }
+        }
+
+        return decodedStringJoiner.toString();
+    }
+
     /**
      * encode the input char array using Run Length Encoding (RLE) algorithm
      * <p>
