@@ -4,6 +4,16 @@ import java.util.StringJoiner;
 
 public class Main {
 
+    /**
+     * decode a string that was previously encoded with RLE algorithm
+     * <p>
+     *     REQUIREMENTS: <br>
+     *     - digits in input encoded string must be used only to point out the number of repetition for a certain character. <br>
+     *       It means characters in the output string will be part of the alphabet_1 = all characters - digits
+     * </p>
+     * @param s string to decode
+     * @return decoded string. if input string is empty or blank return empty string
+     */
     public static String decode(String s) {
         if (s.isEmpty()) {
             return s;
@@ -175,7 +185,7 @@ public class Main {
             System.out.println("encoded String: \"" + encodedString + "\"");
             System.out.println("encoded String: \"" + encodedStringFromCharArray + "\"");
             System.out.println("are encoded Strings equals: " + encodedString.equalsIgnoreCase(encodedStringFromCharArray));
-
+            System.out.println("is decoded String equals to input: " + test.equalsIgnoreCase(decode(encodedString)));
         }
 
     }
