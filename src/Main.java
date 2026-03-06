@@ -124,10 +124,17 @@ public class Main {
         stringTestList.add("    ");
         stringTestList.add("wwwwaaadexxxxxxxxxxxxxxx");
 
+        String encodedString;
+        String encodedStringFromCharArray;
         for (String test : stringTestList) {
+
+            encodedString = encode(test);
+            encodedStringFromCharArray = encode(test.toCharArray());
             System.out.println("input: \"" + test + "\"");
-            System.out.println("encoded String: \"" + encode(test) + "\"");
-            System.out.println("encoded String: \"" + encode(test.toCharArray()) + "\"");
+            System.out.println("encoded String: \"" + encodedString + "\"");
+            System.out.println("encoded String: \"" + encodedStringFromCharArray + "\"");
+            System.out.println("are encoded Strings equals: " + encodedString.equalsIgnoreCase(encodedStringFromCharArray));
+
         }
 
     }
