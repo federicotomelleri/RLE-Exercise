@@ -122,7 +122,7 @@ public class Main {
      * encode the input string using Run Length Encoding (RLE) algorithm
      * <p>
      * REQUIREMENTS:
-     * - input string contains characters in the set alphabet_1 = all character - digits
+     * - input string contains characters in the set alphabet_1 = all character - digits <br>
      * - input string must NOT contain numbers (to assure correct and unique decoding)
      * </p>
      * @param s input string to encode
