@@ -4,6 +4,8 @@ import java.util.StringJoiner;
 
 public class Main {
 
+    private static final String ESCAPE_CHARACTER = "\\";
+
     /**
      * decode a string that was previously encoded with RLE algorithm
      * <p>
@@ -164,6 +166,41 @@ public class Main {
         return stringJoiner.toString();
     }
 
+    public static String encodeNoCharRestriction(String s) {
+        // check edge cases
+        if (s.isBlank()) {
+            return "";
+        }
+
+        StringJoiner stringJoiner = new StringJoiner("");
+
+        // initializing variables
+        char previous = s.charAt(0);
+        char current;
+        long count = 1;
+        for (int i = 1 ; i < s.length(); i++) {
+
+            current = s.charAt(i);
+            if (current == previous) {
+                count++;
+                continue;
+            }
+            // adding escape character
+            stringJoiner.add(ESCAPE_CHARACTER);
+            stringJoiner.add(Character.toString(previous));
+            stringJoiner.add(Long.toString(count));
+
+            previous = current;
+            count = 1;
+        }
+        // adding the last character
+        stringJoiner.add(ESCAPE_CHARACTER);
+        stringJoiner.add(Character.toString(previous));
+        stringJoiner.add(Long.toString(count));
+
+        return stringJoiner.toString();
+    }
+
     public static void main(String[] args) {
 
         List<String> stringTestList = new ArrayList<>();
@@ -177,15 +214,32 @@ public class Main {
 
         String encodedString;
         String encodedStringFromCharArray;
+        String encodedStringNoCharRestriction;
         for (String test : stringTestList) {
 
             encodedString = encode(test);
             encodedStringFromCharArray = encode(test.toCharArray());
+            encodedStringNoCharRestriction = encodeRLE(test);
             System.out.println("input: \"" + test + "\"");
             System.out.println("encoded String: \"" + encodedString + "\"");
             System.out.println("encoded String: \"" + encodedStringFromCharArray + "\"");
+            System.out.println("encoded String: \"" + encodedStringNoCharRestriction + "\"");
             System.out.println("are encoded Strings equals: " + encodedString.equalsIgnoreCase(encodedStringFromCharArray));
             System.out.println("is decoded String equals to input: " + test.equalsIgnoreCase(decode(encodedString)));
+        }
+
+        stringTestList = new ArrayList<>();
+        // wwwwaaadexxxxx\x
+        stringTestList.add("wwwwaaadexxxxx\\x");
+        // aaaa\\\\\bbbccc
+        stringTestList.add("aaaa\\\\\\\\\\bbbccc");
+        // aaaa\\\\\bbb1111ccc333332222ddddd77777eeeeee1111111222223333300000www
+        stringTestList.add("aaaa\\\\\\\\\\bbb1111ccc333332222ddddd77777eeeeee1111111222223333300000www");
+        for (String test : stringTestList) {
+            encodedStringNoCharRestriction = encodeNoCharRestriction(test);
+            System.out.println("input: \"" + test + "\"");
+            System.out.println("encoded String: \"" + encodedStringNoCharRestriction + "\"");
+            //System.out.println("is decoded String equals to input: " + test.equalsIgnoreCase(decode(encodedString)));
         }
 
     }
