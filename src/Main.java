@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -113,27 +112,65 @@ public class Main {
         return stringJoiner.toString();
     }
 
+    public static String encodeWithNoRepetition(String s) {
+        // check edge cases
+        if (s.isEmpty()) {
+            return s;
+        }
+
+        if (s.isBlank()) {
+            return "";
+        }
+
+        Map<Character, Long> characterCountMap = new HashMap<>();
+
+        // initializing variables
+        char current;
+        long count = 1;
+        for (int i = 0 ; i < s.length(); i++) {
+
+            current = s.charAt(i);
+            if (!characterCountMap.containsKey(current)) {
+                characterCountMap.put(current, 1L);
+                continue;
+            }
+            count = characterCountMap.get(current);
+            count++;
+            characterCountMap.put(current, count);
+        }
+
+        StringJoiner stringJoiner = new StringJoiner("");
+
+        String encodedStr = characterCountMap.entrySet()
+                .stream()
+                .map(keyAndValue -> "" + keyAndValue.getKey() + keyAndValue.getValue())
+                .collect(Collectors.joining());
+
+
+        /*
+        for ( Map.Entry<Character, Long> keyAndValue : characterCountMap.entrySet()) {
+            stringJoiner.add(keyAndValue.getKey().toString());
+            stringJoiner.add(keyAndValue.getValue().toString());
+        }
+        */
+        return encodedStr;
+    }
+
     public static void main(String[] args) {
 
         List<String> stringTestList = new ArrayList<>();
-        stringTestList.add("wwwwaaadexxxxxx");
-        stringTestList.add("aaaabbbccc");
-        stringTestList.add("abbbcdddd");
-        stringTestList.add("a");
-        stringTestList.add("");
-        stringTestList.add("    ");
-        stringTestList.add("wwwwaaadexxxxxxxxxxxxxxx");
+        stringTestList.add("aaaabbbccca");
 
         String encodedString;
         String encodedStringFromCharArray;
         for (String test : stringTestList) {
 
-            encodedString = encode(test);
-            encodedStringFromCharArray = encode(test.toCharArray());
+            encodedString = encodeWithNoRepetition(test);
+            //encodedStringFromCharArray = encode(test.toCharArray());
             System.out.println("input: \"" + test + "\"");
             System.out.println("encoded String: \"" + encodedString + "\"");
-            System.out.println("encoded String: \"" + encodedStringFromCharArray + "\"");
-            System.out.println("are encoded Strings equals: " + encodedString.equalsIgnoreCase(encodedStringFromCharArray));
+            //System.out.println("encoded String: \"" + encodedStringFromCharArray + "\"");
+            //System.out.println("are encoded Strings equals: " + encodedString.equalsIgnoreCase(encodedStringFromCharArray));
 
         }
 
